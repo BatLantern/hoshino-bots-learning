@@ -1,0 +1,38 @@
+# 运行数据与隐私：一律不进仓库
+data/
+QQ/
+llonebot-data/
+deploy/gscore/gsuid_core/
+**/logs/
+*.log
+*.db
+*.db-shm
+*.db-wal
+*.session
+*.sqlite
+*.sqlite3
+
+# 真实配置只留在服务器上；仓库里只提交 *.example.*
+.env
+.env.*
+!.env.example
+deploy/mihomo/config.yaml
+**/config.yaml
+config_*.json
+webui_token.txt
+email_config.json
+
+# Python / Node 产物
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+node_modules/
+.pytest_cache/
+.ruff_cache/
+
+# 编辑器与系统文件
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

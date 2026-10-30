@@ -1,0 +1,38 @@
+{
+  "HOST": "0.0.0.0",
+  "PORT": "8765",
+  "LANGUAGE": "zh-cn",
+  "ENABLE_HTTP": false,
+  "WS_TOKEN": "change-me",
+  "TRUSTED_IPS": [
+    "localhost",
+    "::1",
+    "127.0.0.1"
+  ],
+  "masters": [],
+  "superusers": [],
+  "framework_aliases": [
+    "GsCore",
+    "gsuid_core"
+  ],
+  "REGISTER_CODE": "change-me",
+  "web_max_sessions": 1,
+  "misfire_grace_time": 10,
+  "log": {
+    "level": "INFO",
+    "output": [
+      "stdout",
+      "stderr",
+      "file"
+    ],
+    "module": false
+  },
+  "enable_empty_start": false,
+  "command_start": [
+    "core",
+    "gs"
+  ],
+  "buffered_user_writes": true,
+  "sv": {},
+  "web_cors_origins": []
+}

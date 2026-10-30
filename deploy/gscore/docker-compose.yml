@@ -1,0 +1,28 @@
+# GsCore（早柚核心）：游戏向插件的宿主，自己不直连 QQ
+# 它必须和 AstrBot 在同一条 bot-net 上，适配器才能用 gsuid_core:8765 找到它。
+#
+# 使用前把 GsCore 源码克隆到本目录的 gsuid_core/ 下（已被 .gitignore 忽略）：
+#   git clone https://github.com/Genshin-bots/gsuid_core gsuid_core
+services:
+  gsuid_core:
+    image: gsuid-core:runtime        # 镜像来自上游 / 本地已有；如需从源码构建见 GsCore 文档
+    container_name: gsuid_core
+    restart: always
+    ports:
+      # 只给宿主机回环，WebConsole 通过 SSH 隧道访问
+      - "127.0.0.1:${PORT:-8765}:8765"
+    volumes:
+      # 源码、插件、配置、数据库都在这个目录里
+      - ./gsuid_core:/gsuid_core
+      # Python 虚拟环境单独放卷，重建容器不用重装依赖
+      - venv-data:/venv
+    environment:
+      - TZ=Asia/Shanghai
+      - PYTHONUNBUFFERED=1           # 日志不缓冲，docker logs 能实时看到
+    networks:
+      - bot-net
+volumes:
+  venv-data:
+networks:
+  bot-net:
+    external: true

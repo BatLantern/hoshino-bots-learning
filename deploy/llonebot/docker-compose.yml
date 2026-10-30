@@ -1,0 +1,25 @@
+# LLOneBot：容器里跑 QQ NT 客户端，对外提供 OneBot v11
+# 所有端口都只绑 127.0.0.1，公网访问不到，需要时走 SSH 隧道。
+services:
+  llonebot:
+    image: llonebot:latest           # 镜像来自上游 / 本地已有，本项目不构建
+    container_name: llonebot
+    restart: unless-stopped          # 手动 stop 后不会被自动拉起，异常退出会
+    ports:
+      - "127.0.0.1:3000:3000"        # OneBot HTTP：给需要主动请求的客户端用
+      - "127.0.0.1:3001:3001"        # OneBot WebSocket：正向 WS
+      - "127.0.0.1:3080:3080"        # WebUI：扫码登录、改 OneBot 配置
+      - "127.0.0.1:5900:5900"        # VNC：看不到 WebUI 时用图形界面登录 QQ
+      - "127.0.0.1:6099:6099"        # 旧版 WebUI 端口，保留兼容
+    volumes:
+      # QQ 登录态，删掉就要重新扫码
+      - ./QQ:/root/.config/QQ
+      # LLOneBot 自己的配置与插件，含 OneBot 连接配置
+      - ./llonebot-data:/root/llonebot
+    environment:
+      - TZ=Asia/Shanghai             # 容器时区，日志时间和 QQ 消息时间才对得上
+    networks:
+      - bot-net
+networks:
+  bot-net:
+    external: true

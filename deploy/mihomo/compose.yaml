@@ -1,0 +1,15 @@
+# mihomo 出站代理
+# 作用：只给 AstrBot 访问 LLM API 用，不对外提供代理服务，所以不映射任何端口。
+services:
+  mihomo:
+    image: mihomo:v1.19.32          # 本地已有镜像；换成你实际使用的 tag 也可以
+    container_name: mihomo           # 容器名固定，AstrBot 里用 http://mihomo:7890 访问
+    restart: always                  # 崩溃或重启机器后自动拉起
+    volumes:
+      # 订阅配置只放服务器上，不进仓库（路径相对于本 compose 文件）
+      - ./config.yaml:/root/.config/mihomo/config.yaml
+    networks:
+      - bot-net                      # 接进四个服务共用的自定义网络
+networks:
+  bot-net:
+    external: true                   # 由 docker network create bot-net 提前创建，不归本 compose 管理

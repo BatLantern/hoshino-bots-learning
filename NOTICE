@@ -1,0 +1,38 @@
+# NOTICE
+
+本仓库只包含**部署编排、配置模板与文档**，不包含下列项目的源代码，也不包含任何账号数据、密钥或日志。
+
+本仓库中的 compose 文件参考了各项目公开的部署文档与示例，按本机实际部署整理；如与上游文档冲突，以上游为准。
+
+## 运行的上游项目
+
+| 项目 | 许可证 | 在本项目中的角色 |
+| --- | --- | --- |
+| [AstrBot](https://github.com/AstrBotDevs/AstrBot) | AGPL-3.0 | 对话、人设、记忆、RAG、插件宿主 |
+| [GsCore / gsuid_core](https://github.com/Genshin-bots/gsuid_core) | GPL-3.0 | 游戏向插件宿主 |
+| [LLOneBot / LuckyLilliaBot](https://github.com/LLOneBot/LuckyLilliaBot) | 见上游仓库 | QQ 客户端与 OneBot v11 实现 |
+| [mihomo](https://github.com/MetaCubeX/mihomo) | 见上游仓库 | 出站代理 |
+| [go-containerregistry](https://github.com/google/go-containerregistry) | Apache-2.0 | 镜像搬运工具（crane） |
+
+## 使用的插件
+
+插件各自遵循其仓库的许可证，本仓库不分发插件代码。
+
+| 插件 | 仓库 |
+| --- | --- |
+| astrbot_plugin_gscore_adapter | https://github.com/KimigaiiWuyi/astrbot_plugin_gscore_adapter |
+| astrbot_plugin_private_companion | https://github.com/menglimi/astrbot_plugin_private_companion |
+| astrbot_plugin_proactive_chat | https://github.com/Pancakes-Labs/astrbot_plugin_proactive_chat |
+| astrbot_plugin_meme_manager | https://github.com/anka-afk/astrbot_plugin_meme_manager |
+| astrbot_plugin_reverse_searcher | https://github.com/OMSociety/astrbot_plugin_reverse_searcher |
+| astrbot_plugin_biliread | https://github.com/SodaCodeSave/astrbot_plugin_biliread |
+| astrbot_plugin_bilibili_bot | https://github.com/drdon1234/astrbot_plugin_bilibili_bot |
+| astrbot_plugin_bilibili_ai_bot | https://github.com/chenluQwQ/astrbot_plugin_bilibili_ai_bot |
+| astrbot_plugin_antipromptinjector | https://github.com/oyxning/astrbot_plugin_antipromptinjector |
+| ChisaEating | https://github.com/MimoKit/ChisaEating |
+
+`memory_companion`、`content_companion` 未在插件元数据中提供仓库地址，故只列名称。
+
+## 商标与名称
+
+文中出现的项目名、角色名、作品名归各自权利人所有，仅用于说明用途。

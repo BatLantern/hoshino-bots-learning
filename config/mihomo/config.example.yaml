@@ -1,0 +1,14 @@
+# mihomo 最小配置示例
+# 复制到 deploy/mihomo/config.yaml 后再改；真实配置不要提交到 Git。
+mixed-port: 7890            # HTTP/SOCKS5 混合端口，AstrBot 通过 http://mihomo:7890 使用
+allow-lan: false            # 只在容器网络内监听，不对局域网/公网开放
+mode: rule                  # 按下面的 rules 分流
+log-level: info
+proxies: []                 # 在这里填你自己的节点；为空时下面的 PROXY 组走 DIRECT
+proxy-groups:
+  - name: PROXY             # 组名，rules 里引用
+    type: select            # 手动选择节点
+    proxies:
+      - DIRECT              # 没有节点时先直连，填好节点后改成节点名
+rules:
+  - MATCH,PROXY             # 兜底规则：其余流量都交给 PROXY 组

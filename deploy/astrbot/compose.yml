@@ -1,0 +1,30 @@
+# AstrBot：人设、记忆、RAG、插件宿主
+# 与线上唯一的差异：6199 在这里收紧到 127.0.0.1（线上曾绑 0.0.0.0），
+# 因为 LLOneBot 走 bot-net 内网直连 astrbot:6199，不需要对宿主机暴露。
+services:
+  astrbot:
+    image: astrbot:latest            # 镜像来自上游 / 本地已有，本项目不构建
+    container_name: astrbot
+    restart: always
+    security_opt:
+      - no-new-privileges:true       # 禁止容器内进程提权
+    ports:
+      - "127.0.0.1:6185:6185"        # WebUI：人设、插件、知识库都在这里配
+      - "127.0.0.1:6199:6199"        # OneBot v11 WS：只给同网络的 LLOneBot 连
+    environment:
+      - TZ=Asia/Shanghai
+      # 只有 AstrBot 需要出站代理；地址用容器名，不要写 127.0.0.1
+      - HTTP_PROXY=http://mihomo:7890
+      - HTTPS_PROXY=http://mihomo:7890
+      # 容器之间互相访问不能走代理，否则 localhost 会被代理接管
+      - NO_PROXY=localhost,127.0.0.1,astrbot,llonebot,gsuid_core,mihomo
+    volumes:
+      # 插件、配置、数据库、知识库元数据都在 data 下；删了等于重装
+      - ./data:/AstrBot/data
+      # 只读挂载宿主时区，避免容器时间和消息时间错位
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - bot-net
+networks:
+  bot-net:
+    external: true
